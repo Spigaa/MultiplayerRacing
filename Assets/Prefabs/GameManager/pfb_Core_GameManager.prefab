@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7807429903037905116}
   - component: {fileID: 8135230276303858331}
   m_Layer: 0
-  m_Name: _GameManager
+  m_Name: pfb_Core_GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +55,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5394040268210560057}
+  - component: {fileID: 7609779264677543223}
   - component: {fileID: 2901742098232643407}
   m_Layer: 0
   m_Name: GameManager
@@ -78,6 +79,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7807429903037905116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7609779264677543223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2405056345928250921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1488004770
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 2901742098232643407}
 --- !u!114 &2901742098232643407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e55de4ba79ea7459f07ba7ebdc3aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player:
+    RawGuidValue: 82a799c8012aa7e4584e086ceb07652f
 --- !u!1 &6320892959064623224
 GameObject:
   m_ObjectHideFlags: 0

@@ -76,9 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235aed1efc9f1ef45a6ba32a4bac8f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIController: {fileID: 1123468795944434717}
   config: {fileID: 11400000, guid: 34b2199229ae385429fd7974edef5132, type: 2}
-  NetworkRunnerPrefab: {fileID: 0}
+  networkRunnerPrefab: {fileID: -6020355334986059255, guid: 42837917206657b4383565f6afe87506,
+    type: 3}
 --- !u!1001 &411580428374830679
 PrefabInstance:
   m_ObjectHideFlags: 0
