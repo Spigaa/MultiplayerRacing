@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: 3320354606200965444}
   - component: {fileID: 5562146453284726569}
   - component: {fileID: 7839126534410179353}
-  - component: {fileID: 7931329551779697428}
   - component: {fileID: 5872500062180522270}
   - component: {fileID: 6630190315760349915}
   m_Layer: 0
@@ -260,8 +259,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -303,44 +302,8 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 7931329551779697428}
   - {fileID: 5872500062180522270}
   - {fileID: 6630190315760349915}
---- !u!114 &7931329551779697428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9040168462585498880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1869825851, guid: 977dbcf975465374990f471e1497f563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _settings:
-    Shape: 1
-    IsTrigger: 0
-    Radius: 0.35
-    Height: 1.8
-    Extent: 0.035
-    ColliderLayer: 6
-    CollisionLayerMask:
-      serializedVersion: 2
-      m_Bits: 65
-    ProxyInterpolationMode: 0
-    TeleportThreshold: 1
-    AntiJitterDistance: {x: 0.025, y: 0.01}
-    CompressNetworkPosition: 0
-    ForcePredictedLookRotation: 0
-    StepHeight: 0.5
-    StepDepth: 0.2
-    StepSpeed: 1
-    StepMinPushBack: 0.5
-    StepGroundCheckRadiusScale: 0.5
-    StepRequireGroundTarget: 0
-    SnapDistance: 0.25
-    SnapSpeed: 4
 --- !u!114 &5872500062180522270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d50b6589ea88994da29f8da5acd4e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kcc: {fileID: 7931329551779697428}
+  kcc: {fileID: 0}
   speed: 10
   turnSpeed: 100
   brakeForce: 50
