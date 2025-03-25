@@ -1,58 +1,91 @@
 using Fusion;
 using Fusion.Addons.SimpleKCC;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Movement : NetworkBehaviour
 {
     [Header("Settings")]
-    //[SerializeField] private SimpleKCC kcc;
     [SerializeField] private float speed = 10f;
+    [SerializeField] private float reverseSpeed = 5f;
+    [Space(10)]
     [SerializeField] private float turnSpeed = 100f;
     [SerializeField] private float brakeForce = 50f;
-    [SerializeField] private float reverseSpeed = 5f;
+    [Space(10)]
+    [SerializeField] private float forwardSmoothness = 8f;
+    [SerializeField] private float acceleration = 4f;
+    [SerializeField] private float deceleration = 8f;
+
+    [Header("References")]
+    [SerializeField] private Player_Camera player_Camera;
 
     [Networked] private NetworkButtons prevButtons { get; set; } = new NetworkButtons();
 
-    private Rigidbody rb;
-    //private float moveInput;
-    //private float turnInput;
+    private SimpleKCC kcc;
+    private Player_Visuals visuals;
+
     private float forwardInput;
-    
+    private float ts;
+
+    private Vector3 moveDirection;
+
     void Awake() {
         InitializeReferences();
     }
 
     private void InitializeReferences() {
-        rb = GetComponent<Rigidbody>();
+        kcc = GetComponent<SimpleKCC>();
+        visuals = GetComponent<Player_Visuals>();
     }
 
     public override void Spawned() {
         base.Spawned();
 
-        //kcc.SetGravity(Physics.gravity.y * 2f);
+        kcc.SetGravity(Physics.gravity.y * 2f);
+
+        if (!HasInputAuthority)
+            Destroy(player_Camera.gameObject);
     }
 
     public override void FixedUpdateNetwork() {
         base.FixedUpdateNetwork();
 
-        if (GetInput(out NetInput input)) {
-            //Vector3 dir = kcc.TransformRotation * new Vector3(input.Direction.x, 0, input.Direction.y);
-            //kcc.Move(dir.normalized * speed);
+        if (GetInput(out NetInput input)) {            
+            float result;
+            float smoothness;
 
-            if (rb.velocity.magnitude > 0.1f) transform.Rotate(0, input.Direction.x * turnSpeed * Time.deltaTime, 0);
-            rb.drag = input.Buttons.WasPressed(prevButtons, InputButton.Brake) ? brakeForce : 1;
+            if (input.Buttons.WasPressed(prevButtons, InputButton.Brake)) {
+                result = 0;
+                smoothness = deceleration;
+            }
+            else {
+                if (input.Direction.y > 0) {
+                    result = speed;
+                    smoothness = acceleration;
+                }
+                else if (input.Direction.y < 0) {
+                    result = -reverseSpeed;
+                    smoothness = deceleration;
+                }
+                else {
+                    result = 0;
+                    smoothness = acceleration;
+                }
+            }            
 
-            if (input.Direction.y > 0) forwardInput = speed;
-            else if (input.Direction.y < 0) forwardInput = reverseSpeed;
-            else forwardInput = 0;
+            forwardInput = Mathf.Lerp(forwardInput, result, smoothness * Time.deltaTime);
+            moveDirection = Vector3.Lerp(moveDirection, transform.forward * forwardInput, Time.deltaTime * forwardSmoothness);
 
-            rb.velocity = transform.forward * forwardInput * input.Direction.y;
+            ts = Mathf.Lerp(ts, input.Direction.x * turnSpeed * Time.deltaTime, Time.deltaTime * 4.5f);
+            ts *= Mathf.Clamp(kcc.RealSpeed, 0, 1);
+
+            kcc.Move(moveDirection);
+            kcc.AddLookRotation(new Vector2(0, ts));
+
+            visuals.HandleWheelsRotation(input.Direction, kcc.RealSpeed);
 
             prevButtons = input.Buttons;
         }
-    }
+    } 
 
     private void HandleInputMovement() {
         /*moveInput = Input.GetAxis("Vertical");

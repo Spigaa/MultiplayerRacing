@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Fusion.Sockets.NetBitBuffer;
 
 public class Player_Camera : MonoBehaviour
 {
@@ -17,7 +14,7 @@ public class Player_Camera : MonoBehaviour
     private Vector3 desiredPosition;
     private Quaternion desiredRotation;
 
-    private void Awake() {
+    private void Awake() {        
         transform.SetParent(null);
     }
 
